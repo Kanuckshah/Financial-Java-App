@@ -1,5 +1,4 @@
 
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -231,13 +230,13 @@ public class PanelFactory {
         panel.setContentLayout(new BorderLayout());
 
         JPanel statsPanel = new JPanel(new GridLayout(2, 3, 20, 20));
-        statsPanel.setBackground(Color.WHITE);
+        statsPanel.setBackground(Theme.BACKGROUND);
 
-        StatCard balanceCard = panel.addStatCard("Current Balance", "$0.00", Color.WHITE);
-        StatCard incomeCard = panel.addStatCard("Total Income", "$0.00", Color.WHITE);
-        StatCard expensesCard = panel.addStatCard("Total Expenses", "$0.00", Color.WHITE);
-        StatCard budgetCard = panel.addStatCard("Budget Status", "Not Set", Color.WHITE);
-        StatCard savingsCard = panel.addStatCard("Savings Goal", "Not Set", Color.WHITE);
+        StatCard balanceCard = panel.addStatCard("Current Balance", "$0.00", Theme.PRIMARY);
+        StatCard incomeCard = panel.addStatCard("Total Income", "$0.00", Theme.SUCCESS);
+        StatCard expensesCard = panel.addStatCard("Total Expenses", "$0.00", Theme.DANGER);
+        StatCard budgetCard = panel.addStatCard("Budget Status", "Not Set", Theme.WARNING);
+        StatCard savingsCard = panel.addStatCard("Savings Goal", "Not Set", Theme.INFO);
 
         statsPanel.add(balanceCard);
         statsPanel.add(incomeCard);
@@ -246,22 +245,44 @@ public class PanelFactory {
         statsPanel.add(savingsCard);
 
         JPanel budgetProgressPanel = new JPanel(new BorderLayout());
-        budgetProgressPanel.setBorder(BorderFactory.createTitledBorder("Monthly Budget Usage"));
-        budgetProgressPanel.setBackground(Color.WHITE);
+        budgetProgressPanel.setBackground(Theme.SURFACE);
+        budgetProgressPanel.setBorder(Theme.createCardBorder());
+
+        JLabel budgetLabel = new JLabel("Monthly Budget Usage");
+        budgetLabel.setFont(Theme.FONT_SUBHEADING);
+        budgetLabel.setForeground(Theme.TEXT_PRIMARY);
+        budgetLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, Theme.PADDING_SMALL, 0));
+        budgetProgressPanel.add(budgetLabel, BorderLayout.NORTH);
+
         JProgressBar budgetProgressBar = new JProgressBar(0, 100);
         budgetProgressBar.setStringPainted(true);
         budgetProgressBar.setString("0%");
+        budgetProgressBar.setForeground(Theme.PRIMARY);
+        budgetProgressBar.setBackground(Theme.PRIMARY_PALE);
+        budgetProgressBar.setPreferredSize(new Dimension(0, 30));
+        budgetProgressBar.setBorder(BorderFactory.createEmptyBorder(Theme.PADDING_SMALL, 0, 0, 0));
         budgetProgressPanel.add(budgetProgressBar, BorderLayout.CENTER);
         statsPanel.add(budgetProgressPanel);
 
         panel.addToContent(statsPanel, BorderLayout.CENTER);
 
         JPanel savingsPanel = new JPanel(new BorderLayout());
-        savingsPanel.setBorder(BorderFactory.createTitledBorder("Savings Goal Progress"));
-        savingsPanel.setBackground(Color.WHITE);
+        savingsPanel.setBackground(Theme.SURFACE);
+        savingsPanel.setBorder(Theme.createCardBorder());
+
+        JLabel savingsLabel = new JLabel("Savings Goal Progress");
+        savingsLabel.setFont(Theme.FONT_SUBHEADING);
+        savingsLabel.setForeground(Theme.TEXT_PRIMARY);
+        savingsLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, Theme.PADDING_SMALL, 0));
+        savingsPanel.add(savingsLabel, BorderLayout.NORTH);
+
         JProgressBar savingsProgressBar = new JProgressBar(0, 100);
         savingsProgressBar.setStringPainted(true);
         savingsProgressBar.setString("0%");
+        savingsProgressBar.setForeground(Theme.SUCCESS);
+        savingsProgressBar.setBackground(new Color(220, 252, 231)); // Green-100
+        savingsProgressBar.setPreferredSize(new Dimension(0, 30));
+        savingsProgressBar.setBorder(BorderFactory.createEmptyBorder(Theme.PADDING_SMALL, 0, 0, 0));
         savingsPanel.add(savingsProgressBar, BorderLayout.CENTER);
 
         panel.addToContent(savingsPanel, BorderLayout.SOUTH);

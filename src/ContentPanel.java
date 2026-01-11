@@ -1,5 +1,4 @@
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class ContentPanel extends JPanel {
         this.statCards = new ArrayList<>();
 
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(Theme.BACKGROUND);
 
         JPanel mainLayout = new JPanel(new BorderLayout());
 
@@ -28,20 +27,22 @@ public class ContentPanel extends JPanel {
         }
 
         JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(Color.WHITE);
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        contentPanel.setBackground(Theme.BACKGROUND);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(Theme.PADDING_LARGE, Theme.PADDING_LARGE,
+                Theme.PADDING_LARGE, Theme.PADDING_LARGE));
 
         // Header
         headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(Color.WHITE);
+        headerPanel.setBackground(Theme.BACKGROUND);
 
         titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+        titleLabel.setFont(Theme.FONT_TITLE);
+        titleLabel.setForeground(Theme.TEXT_PRIMARY);
         headerPanel.add(titleLabel, BorderLayout.WEST);
 
         subtitleLabel = new JLabel("");
-        subtitleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        subtitleLabel.setForeground(Color.DARK_GRAY);
+        subtitleLabel.setFont(Theme.FONT_BODY);
+        subtitleLabel.setForeground(Theme.WARNING);
         subtitleLabel.setVisible(false);
         headerPanel.add(subtitleLabel, BorderLayout.EAST);
 
@@ -49,12 +50,12 @@ public class ContentPanel extends JPanel {
 
         // Content area
         contentArea = new JPanel();
-        contentArea.setBackground(Color.WHITE);
+        contentArea.setBackground(Theme.BACKGROUND);
         contentPanel.add(contentArea, BorderLayout.CENTER);
 
         // Footer
         footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        footerPanel.setBackground(Color.WHITE);
+        footerPanel.setBackground(Theme.BACKGROUND);
         contentPanel.add(footerPanel, BorderLayout.SOUTH);
 
         mainLayout.add(contentPanel, BorderLayout.CENTER);

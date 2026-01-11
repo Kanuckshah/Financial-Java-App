@@ -1,5 +1,4 @@
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -19,11 +18,12 @@ public class FormPanel extends JPanel {
         this.currentRow = 0;
 
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        setBackground(Theme.BACKGROUND);
+        setBorder(BorderFactory.createEmptyBorder(Theme.PADDING_XL, Theme.PADDING_XL, Theme.PADDING_XL,
+                Theme.PADDING_XL));
 
         formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(Color.WHITE);
+        formPanel.setBackground(Theme.BACKGROUND);
 
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -31,7 +31,8 @@ public class FormPanel extends JPanel {
 
         if (title != null && !title.isEmpty()) {
             JLabel titleLabel = new JLabel(title);
-            titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+            titleLabel.setFont(Theme.FONT_TITLE);
+            titleLabel.setForeground(Theme.TEXT_PRIMARY);
             titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
             gbc.gridx = 0;
             gbc.gridy = currentRow++;
@@ -51,6 +52,8 @@ public class FormPanel extends JPanel {
         gbc.weightx = 0;
 
         JLabel label = new JLabel(field.getLabel());
+        label.setFont(Theme.FONT_BODY);
+        label.setForeground(Theme.TEXT_PRIMARY);
         formPanel.add(label, gbc);
 
         gbc.gridx = 1;
@@ -101,12 +104,17 @@ public class FormPanel extends JPanel {
             component.setToolTipText(field.getTooltip());
         }
 
+        // Apply modern styling to text fields
+        if (component instanceof JTextField) {
+            Theme.styleTextField((JTextField) component);
+        }
+
         return component;
     }
 
     public FormPanel addButtons(String... buttonLabels) {
-        buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, Theme.PADDING_MEDIUM, 0));
+        buttonPanel.setBackground(Theme.BACKGROUND);
 
         gbc.gridy = currentRow++;
         gbc.gridx = 0;
@@ -125,8 +133,13 @@ public class FormPanel extends JPanel {
         }
 
         JButton button = new JButton(label);
-        button.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
         button.addActionListener(listener);
+
+        // Style as primary or secondary based on label
+        boolean isPrimary = label.equalsIgnoreCase("Save") || label.equalsIgnoreCase("Login")
+                || label.equalsIgnoreCase("Register");
+        Theme.styleButton(button, isPrimary);
+
         buttonPanel.add(button);
 
         return this;
