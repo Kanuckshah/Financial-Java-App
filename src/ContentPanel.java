@@ -28,8 +28,8 @@ public class ContentPanel extends JPanel {
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Theme.BACKGROUND);
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(Theme.PADDING_LARGE, Theme.PADDING_LARGE,
-                Theme.PADDING_LARGE, Theme.PADDING_LARGE));
+        // No padding - let dashboard control its own spacing
+        contentPanel.setBorder(null);
 
         // Header
         headerPanel = new JPanel(new BorderLayout());
@@ -93,7 +93,7 @@ public class ContentPanel extends JPanel {
     }
 
     public StatCard addStatCard(String title, String value, Color backgroundColor) {
-        StatCard card = new StatCard(title, value, backgroundColor);
+        StatCard card = new StatCard(title, value, "📊", backgroundColor); // Default icon
         statCards.add(card);
         return card;
     }

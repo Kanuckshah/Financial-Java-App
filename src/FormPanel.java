@@ -80,17 +80,21 @@ public class FormPanel extends JPanel {
 
         switch (field.getType()) {
             case PASSWORD:
-                component = new JPasswordField(field.getColumns());
+                component = new RoundedPasswordField(field.getColumns(), Theme.RADIUS_SMALL);
+                ((RoundedPasswordField) component).setFont(Theme.FONT_BODY);
+                ((RoundedPasswordField) component).setForeground(Theme.TEXT_PRIMARY);
+                ((RoundedPasswordField) component).setBackground(Theme.SURFACE);
+                ((RoundedPasswordField) component).setCaretColor(Theme.PRIMARY);
                 break;
             case NUMBER:
-                component = new JTextField(field.getColumns());
-                break;
             case DATE:
-                component = new JTextField(field.getColumns());
-                break;
             case TEXT:
             default:
-                component = new JTextField(field.getColumns());
+                component = new RoundedTextField(field.getColumns(), Theme.RADIUS_SMALL);
+                ((RoundedTextField) component).setFont(Theme.FONT_BODY);
+                ((RoundedTextField) component).setForeground(Theme.TEXT_PRIMARY);
+                ((RoundedTextField) component).setBackground(Theme.SURFACE);
+                ((RoundedTextField) component).setCaretColor(Theme.PRIMARY);
                 break;
         }
 
@@ -102,11 +106,6 @@ public class FormPanel extends JPanel {
 
         if (field.getTooltip() != null && !field.getTooltip().isEmpty()) {
             component.setToolTipText(field.getTooltip());
-        }
-
-        // Apply modern styling to text fields
-        if (component instanceof JTextField) {
-            Theme.styleTextField((JTextField) component);
         }
 
         return component;
@@ -132,14 +131,11 @@ public class FormPanel extends JPanel {
             addButtons();
         }
 
-        JButton button = new JButton(label);
-        button.addActionListener(listener);
-
-        // Style as primary or secondary based on label
+        // Create rounded button
         boolean isPrimary = label.equalsIgnoreCase("Save") || label.equalsIgnoreCase("Login")
                 || label.equalsIgnoreCase("Register");
-        Theme.styleButton(button, isPrimary);
-
+        JButton button = Theme.createButton(label, isPrimary);
+        button.addActionListener(listener);
         buttonPanel.add(button);
 
         return this;
